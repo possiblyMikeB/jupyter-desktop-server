@@ -10,7 +10,7 @@ HOME = os.environ.get('HOME')
 
 # pull in Davidson's JupyterHub environment variables 
 HUB_PATH = os.environ.get('HUB_PATH', '')
-HUB_PRIVATE = os.environ.get('HUB_PRIVATE', '')
+HUB_PRIVATE = os.environ.get('HUB_PRIVATE', HOME)
 
 def setup_desktop():
     # make a secure temporary directory for sockets
@@ -28,7 +28,9 @@ def setup_desktop():
         '-SecurityTypes', 'None',
         '-rfbunixpath', sockets_path,
         '-fg',
-        '-auth', os.path.join(HOME,'.Xauthority'),
+        '-UseIPv4=0',
+        '-UseIPv6=0',
+        '-auth', os.path.join(HUB_PRIVATE,'.Xauthority'),
         '-nolisten', 'tcp',
         # XXX: quick hack to enable multi. users
         ':'+str(min([ii for ii in range(1,7) \
