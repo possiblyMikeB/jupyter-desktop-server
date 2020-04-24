@@ -24,17 +24,18 @@ def setup_desktop():
         os.path.join(HERE, 'share/tigervnc/bin/vncserver'),
         '-verbose',
         '-xstartup', os.path.join(HUB_PRIVATE, 'xstartup'),
-        '-geometry', '1280x1024',
+        '-geometry', '1024x768',
         '-SecurityTypes', 'None',
         '-rfbunixpath', sockets_path,
         '-fg',
         '-UseIPv4=0',
         '-UseIPv6=0',
-        '-auth', os.path.join(HUB_PRIVATE,'.Xauthority'),
+        '-auth', os.path.join(HOME,'.Xauthority'),
         '-nolisten', 'tcp',
         # XXX: quick hack to enable multi. users
-        ':'+str(min([ii for ii in range(1,7) \
-                     if not os.path.exists(f'/tmp/.X11-unix/X{ii}')])),
+        ':'+str(min([ii for ii in range(1,20) \
+                     if not os.path.exists(f'/tmp/.X11-unix/X{ii}')],
+                    default=1)),
     ]))
     port = random_port()
     return {
