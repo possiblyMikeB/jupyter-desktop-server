@@ -57,5 +57,7 @@ def setup_desktop():
         'timeout': 30,
         'mappath': {'/': '/vnc_lite.html'},
         'launcher_entry': { 'enabled': True,
-                            'title': 'Desktop' },
+                            'title': 'Desktop' }#,
+        #'new_browser_window': True
+
     }
