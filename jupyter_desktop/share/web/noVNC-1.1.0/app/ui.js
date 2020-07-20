@@ -77,7 +77,7 @@ const UI = {
         UI.addControlbarHandlers();
         UI.addTouchSpecificHandlers();
         UI.addExtraKeysHandlers();
-        UI.addMachineHandlers();
+        //UI.addMachineHandlers();
         UI.addConnectionControlHandlers();
         UI.addClipboardHandlers();
         UI.addSettingsHandlers();
@@ -93,7 +93,11 @@ const UI = {
 
         document.documentElement.classList.remove("noVNC_loading");
 
-        let autoconnect = WebUtil.getConfigVar('autoconnect', false);
+	setTimeout( UI.connect, 1000 );
+
+	/*
+	
+        let autoconnect = WebUtil.getConfigVar('autoconnect', true);
         if (autoconnect === 'true' || autoconnect == '1') {
             autoconnect = true;
             UI.connect();
@@ -103,6 +107,7 @@ const UI = {
             UI.openConnectPanel();
         }
 
+	*/
         return Promise.resolve(UI.rfb);
     },
 
@@ -858,44 +863,20 @@ const UI = {
  * ------v------*/
 
     openPowerPanel() {
-        UI.closeAllPanels();
-        UI.openControlbar();
-
-        document.getElementById('noVNC_power')
-            .classList.add("noVNC_open");
-        document.getElementById('noVNC_power_button')
-            .classList.add("noVNC_selected");
+	return
     },
 
     closePowerPanel() {
-        document.getElementById('noVNC_power')
-            .classList.remove("noVNC_open");
-        document.getElementById('noVNC_power_button')
-            .classList.remove("noVNC_selected");
+	return
     },
 
     togglePowerPanel() {
-        if (document.getElementById('noVNC_power')
-            .classList.contains("noVNC_open")) {
-            UI.closePowerPanel();
-        } else {
-            UI.openPowerPanel();
-        }
+	return
     },
 
     // Disable/enable power button
     updatePowerButton() {
-        if (UI.connected &&
-            UI.rfb.capabilities.power &&
-            !UI.rfb.viewOnly) {
-            document.getElementById('noVNC_power_button')
-                .classList.remove("noVNC_hidden");
-        } else {
-            document.getElementById('noVNC_power_button')
-                .classList.add("noVNC_hidden");
-            // Close power panel if open
-            UI.closePowerPanel();
-        }
+	return;
     },
 
 /* ------^-------
@@ -971,9 +952,11 @@ const UI = {
             return;
         }
 
-        const host = UI.getSetting('host');
-        const port = UI.getSetting('port');
-        const path = UI.getSetting('path');
+        const host = window.location.hostname;
+        let port = window.location.port;
+        password = "";
+        // MODIFICATION FROM vnc_lite.html
+        const path = window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify';
 
         if (typeof password === 'undefined') {
             password = WebUtil.getConfigVar('password');

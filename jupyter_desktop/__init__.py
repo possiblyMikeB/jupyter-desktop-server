@@ -55,7 +55,7 @@ def setup_desktop():
         ],
         'port': port,
         'timeout': 30,
-        'mappath': {'/': '/vnc_lite.html'},
+        'mappath': {'/': '/vnc.html'},
         'launcher_entry': { 'enabled': True,
                             'title': 'Desktop' },
     }
