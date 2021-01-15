@@ -8,7 +8,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # import some enironment variables 
 HOME = os.environ.get('HOME')
 
-VNC_PATH = '/usr'
+VNC_PATH = f'{HERE}/share/tigervnc'
 
 # pull in Davidson's JupyterHub environment variables 
 HUB_PATH = os.environ.get('HUB_PATH', '')
